@@ -5,5 +5,8 @@
   "repository": "git@github.com:tr3butor-org/prisma-schema.git",
   "author": "Oleksii Sysoiev <bostonleek@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "publishConfig": {
+    "@tr3butor-org:registry": "https://npm.pkg.github.com"
+  }
 }
