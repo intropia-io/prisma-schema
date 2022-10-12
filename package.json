@@ -8,7 +8,6 @@
   },
   "author": "Oleksii Sysoiev <bostonleek@gmail.com>",
   "license": "MIT",
-  "private": true,
   "publishConfig": {
     "@tr3butor-org:registry": "https://npm.pkg.github.com"
   },
