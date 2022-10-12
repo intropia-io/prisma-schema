@@ -73,6 +73,7 @@ model Organizations {
   linkMedium   String?
   dateFounded  String?
   textBlocks   String?
+  сontractAddress String?
   verified     Boolean  @default(false)
   tags         Tags[]
   quests       Quests[]
