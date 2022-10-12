@@ -1,0 +1,226 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["filteredRelationCount"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("NEXT_PUBLIC_DATABASE_URL")
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String
+  email         String          @unique
+  password      String
+  image         String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  role          UserRoles       @relation(fields: [roleId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  roleId        String
+  quests        Quests[]
+  organizations Organizations[]
+  events        Events[]
+  Logs          Logs[]
+}
+
+model Dynasty {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  avatar      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  published   Boolean  @default(false)
+  quests      Quests[]
+}
+
+model Token {
+  id           String   @id @default(cuid())
+  name         String
+  avatar       String
+  published    Boolean  @default(false)
+  events       Events[]
+  TokenReward  Quests[] @relation("TokenReward")
+  TokenDefault Quests[] @relation("TokenDefault")
+}
+
+model UserRoles {
+  id   String @id @default(cuid())
+  name String
+  User User[]
+}
+
+model Organizations {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?
+  type         Type     @relation(fields: [typeId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  typeId       String
+  avatar       String
+  cover        String?
+  color        String
+  market       String?
+  treasury     String?
+  linkWebsite  String?
+  linkTelegram String?
+  linkTwitter  String?
+  linkReddit   String?
+  linkDiscord  String?
+  linkMedium   String?
+  dateFounded  String?
+  textBlocks   String?
+  verified     Boolean  @default(false)
+  tags         Tags[]
+  quests       Quests[]
+  events       Events[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  userId       String   @default(" ")
+  user         User     @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+}
+
+model Quests {
+  id             String        @id @default(cuid())
+  title          String
+  description    String?
+  type           Type          @relation(fields: [typeId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  typeId         String
+  salaryRange    String?
+  rewardFrom     Float?
+  rewardTo       Float?
+  reffReward     Float?
+  tokenReward    Token?        @relation("TokenReward", fields: [tokenRewardId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  tokenRewardId  String?
+  reffLink       String?
+  linkApply      String
+  organization   Organizations @relation(fields: [organizationId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  organizationId String
+  tags           Tags[]
+  token          Token?        @relation("TokenDefault", fields: [tokenId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  tokenId        String?
+  textBlocks     String?
+  dynasty        Dynasty       @relation(fields: [dynastyId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  dynastyId      String
+  published      Boolean       @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  userId         String        @default(" ")
+  user           User          @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+}
+
+model Events {
+  id             String        @id @default(cuid())
+  title          String
+  description    String?
+  avatar         String
+  type           Type          @relation(fields: [typeId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  typeId         String
+  cost           String?
+  priceFrom      Float?
+  priceTo        Float?
+  startDate      DateTime
+  endDate        DateTime?
+  geo            String?
+  linkApply      String
+  linkWebsite    String?
+  linkTelegram   String?
+  linkTwitter    String?
+  linkReddit     String?
+  linkDiscord    String?
+  linkMedium     String?
+  organization   Organizations @relation(fields: [organizationId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  organizationId String
+  tags           Tags[]
+  textBlocks     String
+  token          Token?        @relation(fields: [tokenId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  tokenId        String?
+  published      Boolean       @default(false)
+  isSoldOut      Boolean       @default(false)
+  isOnline       Boolean       @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  userId String @default(" ")
+  user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+}
+
+model Tags {
+  id            String          @id @default(cuid())
+  name          String
+  description   String?
+  quests        Quests[]
+  events        Events[]
+  organizations Organizations[]
+  published     Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model Type {
+  id               String          @id @default(cuid())
+  name             String
+  description      String?
+  category         Category        @relation(fields: [categoryId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  color            String?
+  discordChannelId String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  organization     Organizations[]
+  events           Events[]
+  quest            Quests[]
+  published        Boolean         @default(false)
+  categoryId       String
+}
+
+model Category {
+  id   String @id @default(cuid())
+  name String
+  Type Type[]
+}
+
+model Logs {
+  id          String   @id @default(cuid())
+  description String?
+  type        String
+  itemId      String
+  action      String
+  user        User     @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Suggest {
+  id        String   @id @default(cuid())
+  type      String
+  content   Json
+  page      String?
+  ip        String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Image {
+  id        String   @id @default(cuid())
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Report {
+  id           String     @id @default(cuid())
+  type         String
+  description  String
+  ReportType   ReportType @relation(fields: [reportTypeId], references: [id])
+  reportTypeId String
+}
+
+model ReportType {
+  id     String   @id @default(cuid())
+  name   String
+  Report Report[]
+}
