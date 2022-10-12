@@ -2,11 +2,22 @@
   "name": "@tr3butor-org/prisma-schema",
   "version": "1.0.0",
   "description": "private tr3butor prisma schema",
-  "repository": "git@github.com:tr3butor-org/prisma-schema.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tr3butor-org/prisma-schema.git"
+  },
   "author": "Oleksii Sysoiev <bostonleek@gmail.com>",
   "license": "MIT",
   "private": true,
   "publishConfig": {
     "@tr3butor-org:registry": "https://npm.pkg.github.com"
+  },
+  "bugs": {
+    "url": "https://github.com/tr3butor-org/prisma-schema/issues"
+  },
+  "homepage": "https://github.com/tr3butor-org/prisma-schema#readme",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
