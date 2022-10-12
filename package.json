@@ -11,5 +11,9 @@
   "bugs": {
     "url": "https://github.com/tr3butor-org/prisma-schema/issues"
   },
-  "homepage": "https://github.com/tr3butor-org/prisma-schema#readme"
+  "homepage": "https://github.com/tr3butor-org/prisma-schema#readme",
+  "dependencies": {
+    "@prisma/client": "^4.4.0",
+    "@types/node": "^18.8.4"
+  }
 }
