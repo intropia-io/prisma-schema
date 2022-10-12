@@ -8,15 +8,8 @@
   },
   "author": "Oleksii Sysoiev <bostonleek@gmail.com>",
   "license": "MIT",
-  "publishConfig": {
-    "@tr3butor-org:registry": "https://npm.pkg.github.com"
-  },
   "bugs": {
     "url": "https://github.com/tr3butor-org/prisma-schema/issues"
   },
-  "homepage": "https://github.com/tr3butor-org/prisma-schema#readme",
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  }
+  "homepage": "https://github.com/tr3butor-org/prisma-schema#readme"
 }
