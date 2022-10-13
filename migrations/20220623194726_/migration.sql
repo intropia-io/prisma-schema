@@ -1,0 +1,11 @@
+-- AlterTable
+ALTER TABLE "Events" ALTER COLUMN "textBlocks" SET NOT NULL,
+ALTER COLUMN "textBlocks" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "Organizations" ALTER COLUMN "textBlocks" DROP NOT NULL,
+ALTER COLUMN "textBlocks" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "Quests" ALTER COLUMN "textBlocks" DROP NOT NULL,
+ALTER COLUMN "textBlocks" SET DATA TYPE TEXT;

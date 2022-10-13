@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "Events" ALTER COLUMN "priseFrom" DROP NOT NULL,
+ALTER COLUMN "priseFrom" DROP DEFAULT;
+
+-- AlterTable
+ALTER TABLE "Quests" ALTER COLUMN "rewardFrom" DROP NOT NULL,
+ALTER COLUMN "rewardFrom" DROP DEFAULT;

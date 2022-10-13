@@ -14,6 +14,7 @@
   "homepage": "https://github.com/tr3butor-org/prisma-schema#readme",
   "dependencies": {
     "@prisma/client": "^4.4.0",
-    "@types/node": "^18.8.4"
+    "@types/node": "^18.8.4",
+    "prisma": "4.4.0"
   }
 }
