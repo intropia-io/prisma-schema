@@ -15,6 +15,7 @@
   "dependencies": {
     "@prisma/client": "^4.4.0",
     "@types/node": "^18.8.4",
+    "next": "^12.3.1",
     "prisma": "4.4.0"
   }
 }
