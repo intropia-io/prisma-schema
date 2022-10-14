@@ -173,6 +173,7 @@ model Type {
   organization     Organizations[]
   events           Events[]
   quest            Quests[]
+  hideFromExplore  Boolean         @default(false)
   published        Boolean         @default(false)
   categoryId       String
 }
