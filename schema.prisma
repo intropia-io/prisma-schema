@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["filteredRelationCount"]
 }
 
@@ -11,7 +11,7 @@ datasource db {
   url      = env("NEXT_PUBLIC_DATABASE_URL")
 }
 
-model User {
+model Admin {
   id            String          @id @default(cuid())
   name          String
   email         String          @unique
@@ -19,7 +19,7 @@ model User {
   image         String?
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-  role          UserRoles       @relation(fields: [roleId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  role          AdminRoles      @relation(fields: [roleId], references: [id], onUpdate: Cascade, onDelete: SetNull)
   roleId        String
   quests        Quests[]
   organizations Organizations[]
@@ -48,40 +48,40 @@ model Token {
   TokenDefault Quests[] @relation("TokenDefault")
 }
 
-model UserRoles {
-  id   String @id @default(cuid())
-  name String
-  User User[]
+model AdminRoles {
+  id    String  @id @default(cuid())
+  name  String
+  User Admin[]
 }
 
 model Organizations {
-  id           String   @id @default(cuid())
-  name         String
-  description  String?
-  type         Type     @relation(fields: [typeId], references: [id], onUpdate: Cascade, onDelete: SetNull)
-  typeId       String
-  avatar       String
-  cover        String?
-  color        String
-  market       String?
-  treasury     String?
-  linkWebsite  String?
-  linkTelegram String?
-  linkTwitter  String?
-  linkReddit   String?
-  linkDiscord  String?
-  linkMedium   String?
-  dateFounded  String?
-  textBlocks   String?
+  id              String   @id @default(cuid())
+  name            String
+  description     String?
+  type            Type     @relation(fields: [typeId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  typeId          String
+  avatar          String
+  cover           String?
+  color           String
+  market          String?
+  treasury        String?
+  linkWebsite     String?
+  linkTelegram    String?
+  linkTwitter     String?
+  linkReddit      String?
+  linkDiscord     String?
+  linkMedium      String?
+  dateFounded     String?
+  textBlocks      String?
   contractAddress String?
-  verified     Boolean  @default(false)
-  tags         Tags[]
-  quests       Quests[]
-  events       Events[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  userId       String   @default(" ")
-  user         User     @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  verified        Boolean  @default(false)
+  tags            Tags[]
+  quests          Quests[]
+  events          Events[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  userId          String   @default(" ")
+  user            Admin    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
 }
 
 model Quests {
@@ -110,7 +110,7 @@ model Quests {
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   userId         String        @default(" ")
-  user           User          @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  user           Admin         @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
 }
 
 model Events {
@@ -146,7 +146,7 @@ model Events {
   updatedAt      DateTime      @updatedAt
 
   userId String @default(" ")
-  user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  user   Admin  @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
 }
 
 model Tags {
@@ -190,7 +190,7 @@ model Logs {
   type        String
   itemId      String
   action      String
-  user        User     @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  user        Admin    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   userId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
