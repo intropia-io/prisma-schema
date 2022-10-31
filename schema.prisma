@@ -11,6 +11,12 @@ datasource db {
   url      = env("NEXT_PUBLIC_DATABASE_URL")
 }
 
+enum EntityStates {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 model Admin {
   id            String          @id @default(cuid())
   name          String
@@ -55,10 +61,10 @@ model AdminRoles {
 }
 
 model Organizations {
-  id              String   @id @default(cuid())
+  id              String       @id @default(cuid())
   name            String
   description     String?
-  type            Type     @relation(fields: [typeId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  type            Type         @relation(fields: [typeId], references: [id], onUpdate: Cascade, onDelete: SetNull)
   typeId          String
   avatar          String
   cover           String?
@@ -74,14 +80,15 @@ model Organizations {
   dateFounded     String?
   textBlocks      String?
   contractAddress String?
-  verified        Boolean  @default(false)
+  verified        Boolean      @default(false)
+  state           EntityStates @default(DRAFT)
   tags            Tags[]
   quests          Quests[]
   events          Events[]
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  userId          String   @default(" ")
-  user            Admin    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  userId          String       @default(" ")
+  user            Admin        @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
 }
 
 model Quests {
@@ -107,6 +114,7 @@ model Quests {
   dynasty        Dynasty       @relation(fields: [dynastyId], references: [id], onUpdate: Cascade, onDelete: SetNull)
   dynastyId      String
   published      Boolean       @default(false)
+  state          EntityStates  @default(DRAFT)
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   userId         String        @default(" ")
@@ -140,6 +148,7 @@ model Events {
   token          Token?        @relation(fields: [tokenId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   tokenId        String?
   published      Boolean       @default(false)
+  state          EntityStates  @default(DRAFT)
   isSoldOut      Boolean       @default(false)
   isOnline       Boolean       @default(false)
   createdAt      DateTime      @default(now())
