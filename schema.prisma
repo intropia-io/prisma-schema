@@ -17,6 +17,24 @@ enum EntityStates {
   ARCHIVED
 }
 
+
+enum LogEntity {
+  UNDEFINED
+  INSTITUTE
+  QUEST
+  EVENT
+  DYNASTY
+  TOKEN
+  TAG
+  TYPE
+  CATEGORY
+  SUGGEST
+  IMAGE
+  REPORT
+  REPORT_TYPE
+  ERROR
+}
+
 model Admin {
   id            String          @id @default(cuid())
   name          String
@@ -196,7 +214,7 @@ model Category {
 model Logs {
   id          String   @id @default(cuid())
   description String?
-  type        String
+  type        LogEntity @default(UNDEFINED)
   itemId      String
   action      String
   user        Admin    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
