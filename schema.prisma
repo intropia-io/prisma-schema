@@ -35,6 +35,15 @@ enum LogEntity {
   ERROR
 }
 
+enum LogEntityAction {
+  UNDEFINED
+  CREATE
+  UPDATE
+  ARCHIVE
+  PUBLISH
+  DELETE
+}
+
 model Admin {
   id            String          @id @default(cuid())
   name          String
@@ -216,7 +225,7 @@ model Logs {
   description String?
   type        LogEntity @default(UNDEFINED)
   itemId      String
-  action      String
+  action      LogEntityAction @default(UNDEFINED)
   user        Admin    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   userId      String
   createdAt   DateTime @default(now())
