@@ -93,7 +93,7 @@ model Quests {
   organizationId String
   tokenId        String?
   dynastyId      String
-  published      Boolean       @default(false)
+  published      Boolean       @default(false) //DEPRECATED
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   userId         String        @default(" ")
@@ -131,7 +131,7 @@ model Events {
   linkDiscord    String?
   linkMedium     String?
   organizationId String
-  published      Boolean       @default(false)
+  published      Boolean       @default(false) //DEPRECATED
   isSoldOut      Boolean       @default(false)
   isOnline       Boolean       @default(false)
   createdAt      DateTime      @default(now())
@@ -154,7 +154,7 @@ model Tags {
   description   String?
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-  published     Boolean         @default(false)
+  published     Boolean         @default(false) 
   events        Events[]
   organizations Organizations[]
   quests        Quests[]
@@ -171,7 +171,9 @@ model Type {
   categoryId       String
   published        Boolean         @default(false)
   hideFromExplore  Boolean         @default(false)
-  category         Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  category         Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade) //DEPRECATED
+  categoryType     CategoryType    @default(INSTITUTE)
+  customRules      CustomRules[]
   events           Events[]
   organization     Organizations[]
   quest            Quests[]
@@ -270,6 +272,16 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum CategoryType {
+  INSTITUTE
+  EVENT
+  QUEST
+}
+
+enum CustomRules {
+  NO_REWARD
 }
 
 enum EntityStates {
