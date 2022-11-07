@@ -1,21 +1,20 @@
 {
-  "name": "@tr3butor-org/prisma-schema",
+  "name": "@tr3butor-io/prisma-schema",
   "version": "1.0.0",
   "description": "private tr3butor prisma schema",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/tr3butor-org/prisma-schema.git"
+    "url": "git+ssh://git@github.com/tr3butor-io/prisma-schema.git"
   },
   "author": "Oleksii Sysoiev <bostonleek@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tr3butor-org/prisma-schema/issues"
+    "url": "https://github.com/tr3butor-io/prisma-schema/issues"
   },
-  "homepage": "https://github.com/tr3butor-org/prisma-schema#readme",
+  "homepage": "https://github.com/tr3butor-io/prisma-schema#readme",
   "dependencies": {
-    "@prisma/client": "^4.4.0",
+    "@prisma/client": "4.4.0",
     "@types/node": "^18.8.4",
-    "next": "^12.3.1",
     "prisma": "4.4.0"
   }
 }
