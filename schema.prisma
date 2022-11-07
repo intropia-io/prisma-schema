@@ -170,7 +170,7 @@ model Type {
   updatedAt        DateTime        @updatedAt
   categoryId       String
   published        Boolean         @default(false)
-  hideFromExplore  Boolean         @default(false)
+  hideFromExplore  Boolean         @default(false) //DEPRECATED
   category         Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade) //DEPRECATED
   categoryType     CategoryType    @default(INSTITUTE)
   customRules      CustomRules[]
@@ -282,6 +282,7 @@ enum CategoryType {
 
 enum CustomRules {
   NO_REWARD
+  HIDE_FROM_EXPLORER
 }
 
 enum EntityStates {

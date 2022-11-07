@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "CustomRules" ADD VALUE 'HIDE_FROM_EXPLORER';
