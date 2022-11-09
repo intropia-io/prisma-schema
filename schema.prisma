@@ -16,8 +16,8 @@ model Admin {
   image         String?
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-  roleId        String
-  role          AdminRoles      @relation(fields: [roleId], references: [id], onDelete: SetNull)
+  color         String          @default("#060a1b")
+  role          AdminRole      @default(USER)
   events        Events[]
   Logs          Logs[]
   organizations Organizations[]
@@ -43,12 +43,6 @@ model Token {
   events       Events[]
   TokenDefault Quests[] @relation("TokenDefault")
   TokenReward  Quests[] @relation("TokenReward")
-}
-
-model AdminRoles {
-  id   String  @id @default(cuid())
-  name String
-  User Admin[]
 }
 
 model Organizations {
@@ -154,7 +148,7 @@ model Tags {
   description   String?
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-  published     Boolean         @default(false) 
+  published     Boolean         @default(false)
   events        Events[]
   organizations Organizations[]
   quests        Quests[]
@@ -315,4 +309,10 @@ enum LogEntityAction {
   ARCHIVE
   PUBLISH
   DELETE
+}
+
+enum AdminRole {
+  ADMIN
+  MANAGER
+  USER
 }
