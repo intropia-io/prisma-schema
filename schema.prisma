@@ -182,7 +182,7 @@ model Category {
 model Logs {
   id          String          @id @default(cuid())
   description String?
-  title       String
+  title       String          @default("")
   itemId      String
   userId      String
   createdAt   DateTime        @default(now())

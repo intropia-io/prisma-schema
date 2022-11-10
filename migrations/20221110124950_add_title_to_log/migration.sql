@@ -9,7 +9,7 @@ ALTER TABLE "Events" ALTER COLUMN "typeId" DROP NOT NULL,
 ALTER COLUMN "userId" DROP NOT NULL;
 
 -- AlterTable
-ALTER TABLE "Logs" ADD COLUMN     "title" TEXT NOT NULL;
+ALTER TABLE "Logs" ADD COLUMN     "title" TEXT NOT NULL DEFAULT '';
 
 -- AlterTable
 ALTER TABLE "Organizations" ALTER COLUMN "typeId" DROP NOT NULL,
