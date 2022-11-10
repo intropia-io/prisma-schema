@@ -17,7 +17,7 @@ model Admin {
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   color         String          @default("#060a1b")
-  role          AdminRole      @default(USER)
+  role          AdminRole       @default(USER)
   events        Events[]
   Logs          Logs[]
   organizations Organizations[]
@@ -49,7 +49,7 @@ model Organizations {
   id              String       @id @default(cuid())
   name            String
   description     String?
-  typeId          String
+  typeId          String?
   avatar          String
   cover           String?
   color           String
@@ -65,12 +65,12 @@ model Organizations {
   verified        Boolean      @default(false)
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
-  userId          String       @default(" ")
+  userId          String?      @default(" ")
   textBlocks      String?
   contractAddress String?
   state           EntityStates @default(DRAFT)
-  type            Type         @relation(fields: [typeId], references: [id], onDelete: SetNull)
-  user            Admin        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  type            Type?        @relation(fields: [typeId], references: [id], onDelete: SetNull)
+  user            Admin?       @relation(fields: [userId], references: [id], onDelete: SetNull)
   events          Events[]
   quests          Quests[]
   tags            Tags[]
@@ -80,29 +80,29 @@ model Quests {
   id             String        @id @default(cuid())
   title          String
   description    String?
-  typeId         String
+  typeId         String?
   salaryRange    String?
   reffReward     Float?
   linkApply      String
   organizationId String
   tokenId        String?
-  dynastyId      String
+  dynastyId      String?
   published      Boolean       @default(false) //DEPRECATED
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
-  userId         String        @default(" ")
+  userId         String?       @default(" ")
   textBlocks     String?
   rewardFrom     Float?
   rewardTo       Float?
   reffLink       String?
   tokenRewardId  String?
   state          EntityStates  @default(DRAFT)
-  dynasty        Dynasty       @relation(fields: [dynastyId], references: [id], onDelete: SetNull)
+  dynasty        Dynasty?      @relation(fields: [dynastyId], references: [id], onDelete: SetNull)
   organization   Organizations @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   token          Token?        @relation("TokenDefault", fields: [tokenId], references: [id], onDelete: Cascade)
   tokenReward    Token?        @relation("TokenReward", fields: [tokenRewardId], references: [id], onDelete: Cascade)
-  type           Type          @relation(fields: [typeId], references: [id], onDelete: Cascade)
-  user           Admin         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  type           Type?         @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  user           Admin?        @relation(fields: [userId], references: [id], onDelete: SetNull)
   tags           Tags[]
 }
 
@@ -111,7 +111,7 @@ model Events {
   title          String
   description    String?
   avatar         String
-  typeId         String
+  typeId         String?
   cost           String?
   priceFrom      Float?
   startDate      DateTime
@@ -130,15 +130,15 @@ model Events {
   isOnline       Boolean       @default(false)
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
-  userId         String        @default(" ")
+  userId         String?       @default(" ")
   textBlocks     String
   priceTo        Float?
   tokenId        String?
   state          EntityStates  @default(DRAFT)
   organization   Organizations @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   token          Token?        @relation(fields: [tokenId], references: [id], onDelete: Cascade)
-  type           Type          @relation(fields: [typeId], references: [id], onDelete: SetNull)
-  user           Admin         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  type           Type?         @relation(fields: [typeId], references: [id], onDelete: SetNull)
+  user           Admin?        @relation(fields: [userId], references: [id], onDelete: SetNull)
   tags           Tags[]
 }
 
@@ -182,6 +182,7 @@ model Category {
 model Logs {
   id          String          @id @default(cuid())
   description String?
+  title       String
   itemId      String
   userId      String
   createdAt   DateTime        @default(now())
