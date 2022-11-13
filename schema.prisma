@@ -255,7 +255,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  nonce         Int?      @default(dbgenerated("((floor((random() * (((999999999 - 100000000) + 1))::double precision)) + (100000000)::double precision))::integer"))
+  nonce         String?
   publicAddress String?   @unique
   accounts      Account[]
   sessions      Session[]
