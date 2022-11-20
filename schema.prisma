@@ -257,7 +257,7 @@ model User {
   twitterLink     String?
   githubLink      String?
   telegram        String?
-  dynsty          Dynasty[]
+  dynasty         Dynasty[]
   nonce           String?
   publicAddress   String?           @unique
   accounts        Account[]
