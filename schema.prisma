@@ -116,7 +116,7 @@ model QuestLinksStatusErrors {
   status        String
   createdAt     DateTime     @default(now())
   quest         Quests       @relation(fields: [questId], references: [id], onDelete: Cascade)
-  ScheduleLog   ScheduleLog? @relation(fields: [scheduleLogId], references: [id], onDelete: Cascade)
+  scheduleLog   ScheduleLog? @relation(fields: [scheduleLogId], references: [id], onDelete: Cascade)
   scheduleLogId String?
 }
 
