@@ -110,12 +110,21 @@ model Quests {
 }
 
 model QuestLinksStatusErrors {
-  id        String   @id @default(cuid())
-  questId   String
-  link      String
-  status    String
-  createdAt DateTime @default(now())
-  quest     Quests   @relation(fields: [questId], references: [id], onDelete: Cascade)
+  id            String       @id @default(cuid())
+  questId       String
+  link          String
+  status        String
+  createdAt     DateTime     @default(now())
+  quest         Quests       @relation(fields: [questId], references: [id], onDelete: Cascade)
+  ScheduleLog   ScheduleLog? @relation(fields: [scheduleLogId], references: [id], onDelete: Cascade)
+  scheduleLogId String?
+}
+
+model ScheduleLog {
+  id        String                   @id @default(cuid())
+  name      String
+  logs      QuestLinksStatusErrors[]
+  createdAt DateTime                 @default(now())
 }
 
 model Events {
