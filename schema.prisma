@@ -326,6 +326,7 @@ model RestUser {
   id String @id @default(cuid())
   name String
   token String
+  type RestUserType @default(OUTHOUSE)
 }
 
 enum CategoryType {
@@ -385,4 +386,9 @@ enum ReffProgram {
 enum UpdateFrequency {
   WEEKLY
   REALTIME
+}
+
+enum RestUserType {
+  INHOUSE
+  OUTHOUSE
 }
