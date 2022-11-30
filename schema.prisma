@@ -322,6 +322,12 @@ model BotSubscription {
   updatedAt       DateTime        @updatedAt
 }
 
+model RestUser {
+  id String @id @default(cuid())
+  name String
+  token String
+}
+
 enum CategoryType {
   INSTITUTE
   EVENT
