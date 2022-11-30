@@ -309,7 +309,7 @@ model VerificationToken {
 
 model BotSubscription {
   id              String          @id @default(cuid())
-  userId          String
+  userId          String          @unique
   fisrtName       String?
   lastName        String?
   username        String?
@@ -323,10 +323,10 @@ model BotSubscription {
 }
 
 model RestUser {
-  id String @id @default(cuid())
-  name String
+  id    String       @id @default(cuid())
+  name  String
   token String
-  type RestUserType @default(OUTHOUSE)
+  type  RestUserType @default(OUTHOUSE)
 }
 
 enum CategoryType {
