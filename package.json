@@ -13,8 +13,8 @@
   },
   "homepage": "https://github.com/tr3butor-io/prisma-schema#readme",
   "dependencies": {
-    "@prisma/client": "4.5.0",
+    "@prisma/client": "^4.5.0",
     "@types/node": "^18.8.4",
-    "prisma": "4.5.0"
+    "prisma": "^4.5.0"
   }
 }
