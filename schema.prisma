@@ -310,7 +310,7 @@ model VerificationToken {
 model BotSubscription {
   id              String          @id @default(cuid())
   userId          String          @unique
-  fisrtName       String?
+  firstName       String?
   lastName        String?
   username        String?
   dynasties       Dynasty[]
