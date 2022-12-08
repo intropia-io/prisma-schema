@@ -300,13 +300,14 @@ model UserAggrigation {
 }
 
 model ScheduleTask {
-  id         String           @id @default(cuid())
+  id         String             @id @default(cuid())
   name       String
   entityType CategoryType
   entityId   String
   taskType   ScheduleTaskType
-  createdAt  DateTime         @default(now())
-  updatedAt  DateTime         @updatedAt
+  status     ScheduleTaskStatus @default(NEW)
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
 }
 
 model VerificationToken {
@@ -406,4 +407,9 @@ enum RestUserType {
 enum ScheduleTaskType {
   INFORM_BOT_HOURLY
   INFORM_BOT_WEEKLY
+}
+
+enum ScheduleTaskStatus {
+  NEW
+  COMPLETE
 }
