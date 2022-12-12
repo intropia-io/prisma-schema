@@ -1,6 +1,6 @@
 {
   "name": "@tr3butor-io/prisma-schema",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "private tr3butor prisma schema",
   "repository": {
     "type": "git",
