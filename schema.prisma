@@ -25,18 +25,17 @@ model Admin {
 }
 
 model Dynasty {
-  id                String           @id @default(cuid())
-  name              String
-  avatar            String?
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  description       String?
-  published         Boolean          @default(false)
-  quests            Quests[]
-  User              User?            @relation(fields: [userId], references: [id])
-  userId            String?
-  botSubscription   BotSubscription? @relation(fields: [botSubscriptionId], references: [id])
-  botSubscriptionId String?
+  id              String            @id @default(cuid())
+  name            String
+  avatar          String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  description     String?
+  published       Boolean           @default(false)
+  quests          Quests[]
+  User            User?             @relation(fields: [userId], references: [id])
+  userId          String?
+  botSubscription BotSubscription[]
 }
 
 model Token {
@@ -176,23 +175,21 @@ model Tags {
 }
 
 model Type {
-  id                     String           @id @default(cuid())
-  name                   String
-  description            String?
-  color                  String?
-  discordChannelId       String?
-  createdAt              DateTime         @default(now())
-  updatedAt              DateTime         @updatedAt
-  published              Boolean          @default(false)
-  categoryType           CategoryType     @default(INSTITUTE)
-  customRules            CustomRules[]
-  events                 Events[]
-  organization           Organizations[]
-  quest                  Quests[]
-  botSubscriptionQuest   BotSubscription? @relation("questTypes", fields: [botSubscriptionQuestId], references: [id])
-  botSubscriptionQuestId String?
-  botSubscriptionEvent   BotSubscription? @relation("eventTypes", fields: [botSubscriptionEventId], references: [id])
-  botSubscriptionEventId String?
+  id                   String            @id @default(cuid())
+  name                 String
+  description          String?
+  color                String?
+  discordChannelId     String?
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  published            Boolean           @default(false)
+  categoryType         CategoryType      @default(INSTITUTE)
+  customRules          CustomRules[]
+  events               Events[]
+  organization         Organizations[]
+  quest                Quests[]
+  botSubscriptionQuest BotSubscription[] @relation("questTypes")
+  botSubscriptionEvent BotSubscription[] @relation("eventTypes")
 }
 
 model Logs {
