@@ -313,8 +313,8 @@ model RefUserAccount {
 
 model RefCommunityAccount {
   id          String    @id @default(cuid())
-  adminUser   User?     @relation("adminUser", fields: [adminUserId], references: [id])
-  adminUserId String?
+  adminUser   User     @relation("adminUser", fields: [adminUserId], references: [id])
+  adminUserId String
   avatar      String
   title       String
   dynasty     Dynasty[]
