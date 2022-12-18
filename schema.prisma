@@ -281,6 +281,7 @@ model User {
   UserAggrigation     UserAggrigation[]
   RefUserAccount      RefUserAccount?
   RefCommunityAccount RefCommunityAccount[]
+  adminUser           RefCommunityAccount[] @relation("adminUser")
 }
 
 model UserAggrigation {
@@ -311,14 +312,15 @@ model RefUserAccount {
 }
 
 model RefCommunityAccount {
-  id        String    @id @default(cuid())
-  userId    String
-  avatar    String
-  title     String
-  dynasty   Dynasty[]
-  users     User[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id          String    @id @default(cuid())
+  adminUser   User?     @relation("adminUser", fields: [adminUserId], references: [id])
+  adminUserId String?
+  avatar      String
+  title       String
+  dynasty     Dynasty[]
+  users       User[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model ScheduleTask {
