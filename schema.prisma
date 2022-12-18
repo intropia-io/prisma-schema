@@ -25,17 +25,19 @@ model Admin {
 }
 
 model Dynasty {
-  id              String            @id @default(cuid())
-  name            String
-  avatar          String?
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  description     String?
-  published       Boolean           @default(false)
-  quests          Quests[]
-  User            User?             @relation(fields: [userId], references: [id])
-  userId          String?
-  botSubscription BotSubscription[]
+  id                    String               @id @default(cuid())
+  name                  String
+  avatar                String?
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @updatedAt
+  description           String?
+  published             Boolean              @default(false)
+  quests                Quests[]
+  User                  User?                @relation(fields: [userId], references: [id])
+  userId                String?
+  botSubscription       BotSubscription[]
+  RefCommunityAccount   RefCommunityAccount? @relation(fields: [refCommunityAccountId], references: [id])
+  refCommunityAccountId String?
 }
 
 model Token {
@@ -255,27 +257,30 @@ model Account {
 }
 
 model User {
-  id              String            @id @default(cuid())
-  name            String?
-  username        String?           @unique
-  email           String?           @unique
-  emailVerified   DateTime?
-  image           String?
-  firstName       String?
-  lastName        String?
-  description     String?
-  resumeLink      String?
-  contactEmail    String?
-  twitterLink     String?
-  githubLink      String?
-  telegram        String?
-  dynasty         Dynasty[]
-  nonce           String?
-  publicAddress   String?           @unique
-  accounts        Account[]
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @default(now()) @updatedAt
-  UserAggrigation UserAggrigation[]
+  id                  String                @id @default(cuid())
+  refUserId           String?
+  name                String?
+  username            String?               @unique
+  email               String?               @unique
+  emailVerified       DateTime?
+  image               String?
+  firstName           String?
+  lastName            String?
+  description         String?
+  resumeLink          String?
+  contactEmail        String?
+  twitterLink         String?
+  githubLink          String?
+  telegram            String?
+  dynasty             Dynasty[]
+  nonce               String?
+  publicAddress       String?               @unique
+  accounts            Account[]
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @default(now()) @updatedAt
+  UserAggrigation     UserAggrigation[]
+  RefUserAccount      RefUserAccount?
+  RefCommunityAccount RefCommunityAccount[]
 }
 
 model UserAggrigation {
@@ -295,6 +300,25 @@ model UserAggrigation {
   publicAddress String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @default(now()) @updatedAt
+}
+
+model RefUserAccount {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RefCommunityAccount {
+  id        String    @id @default(cuid())
+  userId    String
+  avatar    String
+  title     String
+  dynasty   Dynasty[]
+  users     User[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model ScheduleTask {
@@ -331,6 +355,15 @@ model BotSubscription {
   updatedAt       DateTime        @updatedAt
 }
 
+model ShortLink {
+  id         String       @id @default(cuid())
+  entityId   String
+  entityType ShortUrlType @default(INSTITUTE)
+  shortUrl   String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+}
+
 model RestUser {
   id    String       @id @default(cuid())
   name  String
@@ -342,6 +375,13 @@ enum CategoryType {
   INSTITUTE
   EVENT
   QUEST
+}
+
+enum ShortUrlType {
+  INSTITUTE
+  EVENT
+  QUEST
+  PROFILE
 }
 
 enum CustomRules {
