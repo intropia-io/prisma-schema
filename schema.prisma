@@ -109,6 +109,8 @@ model Quests {
   user                   Admin?                   @relation(fields: [userId], references: [id], onDelete: SetNull)
   tags                   Tags[]
   QuestLinksStatusErrors QuestLinksStatusErrors[]
+  refUserLink            RefUserLink[]
+  refCommunityLink       RefCommunityLink[]
 }
 
 model QuestLinksStatusErrors {
@@ -282,6 +284,8 @@ model User {
   RefUserAccount      RefUserAccount?
   RefCommunityAccount RefCommunityAccount[]
   adminUser           RefCommunityAccount[] @relation("adminUser")
+  refUserApply        RefUserApply[]
+  refCommunityApply   RefCommunityApply[]
 }
 
 model UserAggrigation {
@@ -304,23 +308,109 @@ model UserAggrigation {
 }
 
 model RefUserAccount {
-  id        String   @id @default(cuid())
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String       @id @default(cuid())
+  userId      String       @unique
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  refUserLink RefUserLink?
+}
+
+model RefUserLink {
+  id           String            @id @default(cuid())
+  quest        Quests            @relation(fields: [questId], references: [id], onDelete: Cascade)
+  questId      String
+  userId       String            @unique
+  user         RefUserAccount    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  link         String
+  views        RefUserLinkView[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  refUserApply RefUserApply[]
+}
+
+model RefUserLinkView {
+  id            String       @id @default(cuid())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  refUserLink   RefUserLink? @relation(fields: [refUserLinkId], references: [id])
+  refUserLinkId String
+}
+
+model RefUserApply {
+  id        String         @id @default(cuid())
+  link      RefUserLink    @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  linkId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  cv        RefUserApplyCV @relation(fields: [cvId], references: [id])
+  cvId      String
+  status    ApplyStatus    @default(NEW)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model RefUserApplyCV {
+  id           String         @id @default(cuid())
+  text         String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  refUserApply RefUserApply[]
 }
 
 model RefCommunityAccount {
-  id          String    @id @default(cuid())
-  adminUser   User     @relation("adminUser", fields: [adminUserId], references: [id])
-  adminUserId String
-  avatar      String
-  title       String
-  dynasty     Dynasty[]
-  users       User[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id               String            @id @default(cuid())
+  adminUser        User              @relation("adminUser", fields: [adminUserId], references: [id])
+  adminUserId      String
+  avatar           String
+  title            String
+  dynasty          Dynasty[]
+  users            User[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  refCommunityLink RefCommunityLink?
+}
+
+model RefCommunityLink {
+  id                String                 @id @default(cuid())
+  quest             Quests                 @relation(fields: [questId], references: [id], onDelete: Cascade)
+  questId           String
+  communityId       String                 @unique
+  community         RefCommunityAccount    @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  link              String
+  views             RefCommunityLinkView[]
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+  refCommunityApply RefCommunityApply[]
+}
+
+model RefCommunityLinkView {
+  id                 String            @id @default(cuid())
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  refCommunityLink   RefCommunityLink? @relation(fields: [refCommunityLinkId], references: [id])
+  refCommunityLinkId String
+}
+
+model RefCommunityApply {
+  id        String              @id @default(cuid())
+  link      RefCommunityLink    @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  linkId    String
+  user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  status    ApplyStatus         @default(NEW)
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  cv        RefCommunityApplyCV @relation(fields: [cvId], references: [id])
+  cvId      String
+}
+
+model RefCommunityApplyCV {
+  id                String              @id @default(cuid())
+  text              String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  refCommunityApply RefCommunityApply[]
 }
 
 model ScheduleTask {
@@ -452,4 +542,16 @@ enum ScheduleTaskType {
 enum ScheduleTaskStatus {
   NEW
   COMPLETE
+}
+
+enum ApplyStatus {
+  NEW
+  VERIFIED
+  INVITE
+  SENT_OFFER
+  GET_OFFER
+  DECLINED_OFFER
+  TEST_PERIOD
+  APPOVED
+  DECLINED
 }
