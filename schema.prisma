@@ -36,8 +36,7 @@ model Dynasty {
   User            User?             @relation(fields: [userId], references: [id])
   userId          String?
   botSubscription BotSubscription[]
-  RefAccount      RefAccount?       @relation(fields: [refAccountId], references: [id])
-  refAccountId    String?
+  RefAccount      RefAccount[]
 }
 
 model Token {
