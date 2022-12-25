@@ -277,14 +277,13 @@ model User {
   nonce           String?
   publicAddress   String?           @unique
   accounts        Account[]
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @default(now()) @updatedAt
   userAggrigation UserAggrigation[]
-  refAccount      RefAccount?       @relation(fields: [refAccountId], references: [id])
   adminUser       RefAccount[]      @relation("adminUser")
   refApply        RefApply[]
-  refAccountId    String?
   refLink         RefLink[]
+  refAccount      RefAccount[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @default(now()) @updatedAt
 }
 
 model UserAggrigation {
