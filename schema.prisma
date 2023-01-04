@@ -390,8 +390,8 @@ model BotSubscription {
   dynasties       Dynasty[]
   questTypes      Type[]          @relation("questTypes")
   eventTypes      Type[]          @relation("eventTypes")
-  reffProgram     ReffProgram
-  updateFrequency UpdateFrequency
+  reffProgram     ReffProgram?
+  updateFrequency UpdateFrequency?
   status          SubsStatus      @default(NEW)
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
