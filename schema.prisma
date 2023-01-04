@@ -365,7 +365,7 @@ model RefApplyCV {
 model ScheduleTask {
   id         String             @id @default(cuid())
   name       String
-  entityType CategoryType
+  entityType ScheduleCategoryType
   entityId   String
   taskType   ScheduleTaskType
   status     ScheduleTaskStatus @default(NEW)
@@ -417,6 +417,13 @@ enum CategoryType {
   INSTITUTE
   EVENT
   QUEST
+}
+
+enum ScheduleCategoryType {
+  INSTITUTE
+  EVENT
+  QUEST
+  USER
 }
 
 enum ShortUrlType {
