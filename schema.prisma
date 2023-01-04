@@ -392,6 +392,7 @@ model BotSubscription {
   eventTypes      Type[]          @relation("eventTypes")
   reffProgram     ReffProgram
   updateFrequency UpdateFrequency
+  status          SubsStatus      @default(NEW)
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 }
@@ -478,12 +479,20 @@ enum UpdateFrequency {
   REALTIME
 }
 
+enum SubsStatus {
+  NEW
+  SUBSCRIBED
+  UNSUBSCRIBED
+  DELETED
+}
+
 enum RestUserType {
   INHOUSE
   OUTHOUSE
 }
 
 enum ScheduleTaskType {
+  INFORM_BOT_REALTIME
   INFORM_BOT_HOURLY
   INFORM_BOT_WEEKLY
 }
