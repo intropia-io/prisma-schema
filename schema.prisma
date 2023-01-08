@@ -278,7 +278,7 @@ model User {
   accounts        Account[]
   userAggrigation UserAggrigation[]
   adminUser       RefAccount[]      @relation("adminUser")
-  refApply        RefApply[]
+  apply           Apply[]
   refLink         RefLink[]
   refAccount      RefAccount[]
   createdAt       DateTime          @default(now())
@@ -326,7 +326,7 @@ model RefLink {
   views        RefLinkView[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
-  refUserApply RefApply[]
+  refUserApply Apply[]
   createdBy    User          @relation(fields: [createdById], references: [id])
   createdById  String
   refAccount   RefAccount    @relation(fields: [refAccountId], references: [id])
@@ -341,36 +341,36 @@ model RefLinkView {
   refLinkId String
 }
 
-model RefApply {
+model Apply {
   id        String      @id @default(cuid())
-  link      RefLink     @relation(fields: [linkId], references: [id], onDelete: Cascade)
-  linkId    String
+  link      RefLink?    @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  linkId    String?
   user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  cv        RefApplyCV  @relation(fields: [cvId], references: [id])
+  cv        ApplyCV     @relation(fields: [cvId], references: [id])
   cvId      String
   status    ApplyStatus @default(NEW)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 }
 
-model RefApplyCV {
-  id        String     @id @default(cuid())
+model ApplyCV {
+  id        String   @id @default(cuid())
   text      String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  refApply  RefApply[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  apply     Apply[]
 }
 
 model ScheduleTask {
-  id         String             @id @default(cuid())
+  id         String               @id @default(cuid())
   name       String
   entityType ScheduleCategoryType
   entityId   String
   taskType   ScheduleTaskType
-  status     ScheduleTaskStatus @default(NEW)
-  createdAt  DateTime           @default(now())
-  updatedAt  DateTime           @updatedAt
+  status     ScheduleTaskStatus   @default(NEW)
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
 }
 
 model VerificationToken {
@@ -382,19 +382,19 @@ model VerificationToken {
 }
 
 model BotSubscription {
-  id              String          @id @default(cuid())
-  userId          String          @unique
+  id              String           @id @default(cuid())
+  userId          String           @unique
   firstName       String?
   lastName        String?
   username        String?
   dynasties       Dynasty[]
-  questTypes      Type[]          @relation("questTypes")
-  eventTypes      Type[]          @relation("eventTypes")
+  questTypes      Type[]           @relation("questTypes")
+  eventTypes      Type[]           @relation("eventTypes")
   reffProgram     ReffProgram?
   updateFrequency UpdateFrequency?
-  status          SubsStatus      @default(NEW)
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  status          SubsStatus       @default(NEW)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 }
 
 model ShortLink {
