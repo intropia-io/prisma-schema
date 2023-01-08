@@ -108,7 +108,7 @@ model Quests {
   user                   Admin?                   @relation(fields: [userId], references: [id], onDelete: SetNull)
   tags                   Tags[]
   QuestLinksStatusErrors QuestLinksStatusErrors[]
-  refLink                RefLink[]
+  apply                  Apply[]
 }
 
 model QuestLinksStatusErrors {
@@ -320,8 +320,6 @@ model RefAccount {
 
 model RefLink {
   id           String        @id @default(cuid())
-  quest        Quests        @relation(fields: [questId], references: [id], onDelete: Cascade)
-  questId      String
   link         String
   views        RefLinkView[]
   createdAt    DateTime      @default(now())
@@ -345,6 +343,8 @@ model Apply {
   id        String      @id @default(cuid())
   link      RefLink?    @relation(fields: [linkId], references: [id], onDelete: Cascade)
   linkId    String?
+  quest     Quests?     @relation(fields: [questId], references: [id], onDelete: Cascade)
+  questId   String?
   user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   cv        ApplyCV     @relation(fields: [cvId], references: [id])
