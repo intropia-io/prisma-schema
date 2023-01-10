@@ -109,6 +109,7 @@ model Quests {
   tags                   Tags[]
   QuestLinksStatusErrors QuestLinksStatusErrors[]
   apply                  Apply[]
+  refLink                RefLink[]
 }
 
 model QuestLinksStatusErrors {
@@ -322,6 +323,8 @@ model RefLink {
   id           String        @id @default(cuid())
   link         String
   views        RefLinkView[]
+  quests       Quests        @relation(fields: [questId], references: [id])
+  questId      String
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   refUserApply Apply[]
