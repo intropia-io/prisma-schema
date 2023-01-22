@@ -1,6 +1,6 @@
 {
   "name": "@intropia-io/prisma-schema",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "intropia prisma schema",
   "repository": {
     "type": "git",
@@ -13,7 +13,6 @@
   },
   "homepage": "https://github.com/intropia-io/prisma-schema#readme",
   "dependencies": {
-    "@prisma/client": "^4.5.0",
     "@types/node": "^18.8.4",
     "prisma": "^4.5.0"
   },
