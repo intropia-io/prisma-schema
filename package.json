@@ -33,7 +33,11 @@
     "tsc-hooks": "1.1.1"
   },
   "files": [
-    "*"
+    "utilities/**/*",
+    "index.d.ts",
+    "index.js",
+    "schema.prisma",
+    "package.json"
   ],
   "prisma": {
     "schema": "src/schema.prisma"
