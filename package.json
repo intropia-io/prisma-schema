@@ -13,6 +13,7 @@
   },
   "homepage": "https://github.com/intropia-io/prisma-schema#readme",
   "dependencies": {
+    "@prisma/client": "^4.9.0",
     "@types/node": "^18.8.4",
     "prisma": "^4.5.0"
   },
