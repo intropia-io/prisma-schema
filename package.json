@@ -16,5 +16,8 @@
     "@prisma/client": "^4.5.0",
     "@types/node": "^18.8.4",
     "prisma": "^4.5.0"
+  },
+  "publishConfig": {
+    "@BostonLeeK:registry": "https://npm.pkg.github.com"
   }
 }
