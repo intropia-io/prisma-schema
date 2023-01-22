@@ -7,6 +7,11 @@
     "type": "git",
     "url": "git+ssh://git@github.com/intropia-io/prisma-schema.git"
   },
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json"
+  },
   "author": "Oleksii Sysoiev <bostonleek@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -15,10 +20,20 @@
   "homepage": "https://github.com/intropia-io/prisma-schema#readme",
   "dependencies": {
     "@prisma/client": "^4.9.0",
-    "@types/node": "^18.8.4",
+    "@types/node": "^18.11.18",
     "prisma": "^4.5.0"
   },
   "publishConfig": {
     "@intropia-io:registry": "https://npm.pkg.github.com"
-  }
+  },
+  "devDependencies": {
+    "prettier": "^2.8.3",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "tsc-hooks": "1.1.1"
+  },
+  "files": [
+    "lib/**/*",
+    "src/schema.prisma"
+  ]
 }
