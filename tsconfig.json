@@ -7,8 +7,7 @@
         "strict": true
     },
     "include": [
-        "src",
-        "src/schema.prisma"
+        "src"
     ],
     "exclude": [
         "node_modules",
