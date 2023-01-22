@@ -18,6 +18,6 @@
     "prisma": "^4.5.0"
   },
   "publishConfig": {
-    "@BostonLeeK:registry": "https://npm.pkg.github.com"
+    "@intropia-io:registry": "https://npm.pkg.github.com"
   }
 }
