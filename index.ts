@@ -1,1 +1,0 @@
-export { default as Prisma } from './utilities/prisma'

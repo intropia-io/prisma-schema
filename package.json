@@ -1,7 +1,8 @@
 {
   "name": "@intropia-io/prisma-schema",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "intropia prisma schema",
+  "main": "index.ts",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/intropia-io/prisma-schema.git"
