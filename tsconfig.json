@@ -3,11 +3,12 @@
         "target": "es5",
         "module": "commonjs",
         "declaration": true,
-        "outDir": "./lib",
+        "outDir": "./",
         "strict": true
     },
     "include": [
-        "src"
+        "src",
+        "schema.prisma"
     ],
     "exclude": [
         "node_modules",
