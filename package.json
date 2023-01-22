@@ -35,8 +35,5 @@
   "files": [
     "lib/**/*",
     "src/schema.prisma"
-  ],
-  "prisma": {
-    "schema": "src/schema.prisma"
-  }
+  ]
 }
