@@ -418,7 +418,7 @@ model RestUser {
 
 model WhitelistSubscribes {
   id        String   @id @default(cuid())
-  email     String
+  email     String   @unique
   createdAt DateTime @default(now())
 }
 
