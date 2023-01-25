@@ -33,5 +33,5 @@ jobs:
       - run: npx prisma generate --schema=./src/schema.prisma
       - run: npm run build
       - run: npm publish
-        env:
+        env:`
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

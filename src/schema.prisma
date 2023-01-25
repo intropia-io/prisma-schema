@@ -416,6 +416,12 @@ model RestUser {
   type  RestUserType @default(OUTHOUSE)
 }
 
+model WhitelistSubscribes {
+  id        String   @id @default(cuid())
+  email     String
+  createdAt DateTime @default(now())
+}
+
 enum CategoryType {
   INSTITUTE
   EVENT
