@@ -395,6 +395,7 @@ model BotSubscription {
   eventTypes      Type[]           @relation("eventTypes")
   reffProgram     ReffProgram?
   updateFrequency UpdateFrequency?
+  bot             botType          @default(tr3butor)
   status          SubsStatus       @default(NEW)
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
@@ -440,6 +441,11 @@ enum ShortUrlType {
   EVENT
   QUEST
   PROFILE
+}
+
+enum botType {
+  tr3butor
+  intropia
 }
 
 enum CustomRules {
