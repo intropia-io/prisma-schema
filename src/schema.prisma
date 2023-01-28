@@ -31,7 +31,6 @@ model Dynasty {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   description     String?
-  published       Boolean           @default(false)
   quests          Quests[]
   User            User?             @relation(fields: [userId], references: [id])
   userId          String?
@@ -43,7 +42,6 @@ model Token {
   id           String   @id @default(cuid())
   name         String
   avatar       String
-  published    Boolean  @default(false)
   events       Events[]
   TokenDefault Quests[] @relation("TokenDefault")
   TokenReward  Quests[] @relation("TokenReward")
@@ -150,7 +148,6 @@ model Events {
   linkMedium     String?
   organizationId String
   isSoldOut      Boolean       @default(false)
-  isOnline       Boolean       @default(false)
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   userId         String?       @default(" ")
@@ -171,7 +168,6 @@ model Tags {
   description   String?
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-  published     Boolean         @default(false)
   events        Events[]
   organizations Organizations[]
   quests        Quests[]
@@ -185,7 +181,6 @@ model Type {
   discordChannelId     String?
   createdAt            DateTime          @default(now())
   updatedAt            DateTime          @updatedAt
-  published            Boolean           @default(false)
   categoryType         CategoryType      @default(INSTITUTE)
   customRules          CustomRules[]
   events               Events[]
