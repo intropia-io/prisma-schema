@@ -316,17 +316,17 @@ model RefAccount {
 
 model RefLink {
   id           String        @id @default(cuid())
-  link         String
+  shortId      String        @unique
   views        RefLinkView[]
   quests       Quests        @relation(fields: [questId], references: [id])
   questId      String
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
   refUserApply Apply[]
   createdBy    User          @relation(fields: [createdById], references: [id])
   createdById  String
   refAccount   RefAccount    @relation(fields: [refAccountId], references: [id])
   refAccountId String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
 model RefLinkView {
