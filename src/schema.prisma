@@ -253,32 +253,34 @@ model Account {
 }
 
 model User {
-  id              String            @id @default(cuid())
-  refUserId       String?
-  name            String?
-  username        String?           @unique
-  email           String?           @unique
-  emailVerified   DateTime?
-  image           String?
-  firstName       String?
-  lastName        String?
-  description     String?
-  resumeLink      String?
-  contactEmail    String?
-  twitterLink     String?
-  githubLink      String?
-  telegram        String?
-  dynasty         Dynasty[]
-  nonce           String?
-  publicAddress   String?           @unique
-  accounts        Account[]
-  userAggrigation UserAggrigation[]
-  adminUser       RefAccount[]      @relation("adminUser")
-  apply           Apply[]
-  refLink         RefLink[]
-  refAccount      RefAccount[]
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @default(now()) @updatedAt
+  id                String            @id @default(cuid())
+  refUserId         String?
+  name              String?
+  username          String?           @unique
+  email             String?           @unique
+  emailVerified     DateTime?
+  image             String?
+  firstName         String?
+  lastName          String?
+  description       String?
+  resumeLink        String?
+  contactEmail      String?
+  twitterLink       String?
+  githubLink        String?
+  telegram          String?
+  dynasty           Dynasty[]
+  nonce             String?
+  publicAddress     String?           @unique
+  accounts          Account[]
+  userAggrigation   UserAggrigation[]
+  adminUser         RefAccount[]      @relation("adminUser")
+  defaultRefAccount RefAccount?       @relation("defaultRefAccount", fields: [refAccountId], references: [id])
+  refAccountId      String?
+  apply             Apply[]
+  refLink           RefLink[]
+  refAccount        RefAccount[]
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @default(now()) @updatedAt
 }
 
 model UserAggrigation {
@@ -301,17 +303,18 @@ model UserAggrigation {
 }
 
 model RefAccount {
-  id          String         @id @default(cuid())
-  adminUser   User           @relation("adminUser", fields: [adminUserId], references: [id])
-  adminUserId String
-  avatar      String?
-  title       String?
-  dynasty     Dynasty[]
-  users       User[]
-  refLink     RefLink[]
-  type        RefAccountType @default(PERSONAL)
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  id                String         @id @default(cuid())
+  adminUser         User           @relation("adminUser", fields: [adminUserId], references: [id], onDelete: Cascade)
+  adminUserId       String
+  avatar            String?
+  title             String?
+  dynasty           Dynasty[]
+  users             User[]
+  defaultRefAccount User[]         @relation("defaultRefAccount")
+  refLink           RefLink[]
+  type              RefAccountType @default(PERSONAL)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
 }
 
 model RefLink {
@@ -323,7 +326,7 @@ model RefLink {
   refUserApply Apply[]
   createdBy    User          @relation(fields: [createdById], references: [id])
   createdById  String
-  refAccount   RefAccount    @relation(fields: [refAccountId], references: [id])
+  refAccount   RefAccount    @relation(fields: [refAccountId], references: [id], onDelete: Cascade)
   refAccountId String
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -333,7 +336,7 @@ model RefLinkView {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  refLink   RefLink? @relation(fields: [refLinkId], references: [id])
+  refLink   RefLink? @relation(fields: [refLinkId], references: [id], onDelete: Cascade)
   refLinkId String
 }
 
