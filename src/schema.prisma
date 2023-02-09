@@ -253,11 +253,11 @@ model Account {
 }
 
 model User {
-  id                String            @id @default(cuid())
+  id                String             @id @default(cuid())
   refUserId         String?
   name              String?
-  username          String?           @unique
-  email             String?           @unique
+  username          String?            @unique
+  email             String?            @unique
   emailVerified     DateTime?
   image             String?
   firstName         String?
@@ -270,17 +270,18 @@ model User {
   telegram          String?
   dynasty           Dynasty[]
   nonce             String?
-  publicAddress     String?           @unique
+  publicAddress     String?            @unique
   accounts          Account[]
   userAggrigation   UserAggrigation[]
-  adminUser         RefAccount[]      @relation("adminUser")
-  defaultRefAccount RefAccount?       @relation("defaultRefAccount", fields: [refAccountId], references: [id])
+  adminUser         RefAccount[]       @relation("adminUser")
+  defaultRefAccount RefAccount?        @relation("defaultRefAccount", fields: [refAccountId], references: [id])
   refAccountId      String?
   apply             Apply[]
   refLink           RefLink[]
   refAccount        RefAccount[]
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @default(now()) @updatedAt
+  experience        RewardExperience[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @default(now()) @updatedAt
 }
 
 model UserAggrigation {
@@ -324,7 +325,7 @@ model RefLink {
   quests       Quests        @relation(fields: [questId], references: [id])
   questId      String
   refUserApply Apply[]
-  createdBy    User          @relation(fields: [createdById], references: [id])
+  createdBy    User          @relation(fields: [createdById], references: [id], onDelete: Cascade)
   createdById  String
   refAccount   RefAccount    @relation(fields: [refAccountId], references: [id], onDelete: Cascade)
   refAccountId String
@@ -421,6 +422,25 @@ model WhitelistSubscribes {
   id        String   @id @default(cuid())
   email     String   @unique
   createdAt DateTime @default(now())
+}
+
+model RewardExperience {
+  id        String               @id @default(cuid())
+  type      RewardExperienceType
+  forWhatId String
+  value     Int
+  user      User?                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+}
+
+model RewardExperiencePrice {
+  id        String               @id @default(cuid())
+  type      RewardExperienceType @unique
+  value     Int
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
 }
 
 enum CategoryType {
@@ -539,4 +559,9 @@ enum ApplyStatus {
   TEST_PERIOD
   APPROVED
   DECLINED
+}
+
+enum RewardExperienceType {
+  QUEST_APPLY
+  REF_QUEST_APPLY
 }
