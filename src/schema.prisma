@@ -264,7 +264,6 @@ model User {
   lastName          String?
   description       String?
   resumeLink        String?
-  contactEmail      String?
   twitterLink       String?
   githubLink        String?
   telegram          String?
@@ -280,6 +279,7 @@ model User {
   refLink           RefLink[]
   refAccount        RefAccount[]
   experience        RewardExperience[]
+  optIn             Boolean            @default(false)
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @default(now()) @updatedAt
 }
@@ -294,7 +294,6 @@ model UserAggrigation {
   lastName      String?
   description   String?
   resumeLink    String?
-  contactEmail  String?
   twitterLink   String?
   githubLink    String?
   telegram      String?
@@ -507,8 +506,12 @@ enum LogEntityAction {
 
 enum AdminRole {
   ADMIN
+  SUPEROLEG
+  HR
+  CONTENT
   MANAGER
   USER
+  DEMO
 }
 
 enum ReffProgram {
