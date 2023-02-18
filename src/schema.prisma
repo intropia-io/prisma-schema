@@ -32,8 +32,7 @@ model Dynasty {
   updatedAt       DateTime          @updatedAt
   description     String?
   quests          Quests[]
-  User            User?             @relation(fields: [userId], references: [id])
-  userId          String?
+  User            User[]
   botSubscription BotSubscription[]
 }
 
