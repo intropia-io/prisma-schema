@@ -35,7 +35,6 @@ model Dynasty {
   User            User?             @relation(fields: [userId], references: [id])
   userId          String?
   botSubscription BotSubscription[]
-  RefAccount      RefAccount[]
 }
 
 model Token {
@@ -309,7 +308,7 @@ model RefAccount {
   adminUserId       String
   avatar            String?
   title             String?
-  dynasty           Dynasty[]
+  description       String?
   users             User[]
   defaultRefAccount User[]         @relation("defaultRefAccount")
   refLink           RefLink[]
@@ -354,6 +353,8 @@ model Apply {
   status    ApplyStatus @default(NEW)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
+
+  @@unique([questId, userId])
 }
 
 model ApplyCV {
