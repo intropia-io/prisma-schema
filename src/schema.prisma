@@ -17,7 +17,8 @@ model Admin {
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   color         String          @default("#060a1b")
-  role          AdminRole       @default(USER)
+  role          AdminRole       @default(USER) //deprecated
+  roles         AdminRole[]     @default([USER])
   events        Events[]
   Logs          Logs[]
   organizations Organizations[]
@@ -83,7 +84,7 @@ model Quests {
   typeId                 String?
   salaryRange            String?
   reffReward             Float?
-  linkApply              String
+  linkApply              String?
   organizationId         String
   tokenId                String?
   dynastyId              String?
@@ -93,7 +94,7 @@ model Quests {
   textBlocks             String?
   rewardFrom             Float?
   rewardTo               Float?
-  reffLink               String?
+  reffLink               String? //deprecated
   tokenRewardId          String?
   state                  EntityStates             @default(DRAFT)
   dynasty                Dynasty?                 @relation(fields: [dynastyId], references: [id], onDelete: SetNull)
