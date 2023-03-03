@@ -69,6 +69,7 @@ model Organizations {
   userId          String?      @default(" ")
   textBlocks      String?
   contractAddress String?
+  clientsId       String[]
   state           EntityStates @default(DRAFT)
   type            Type?        @relation(fields: [typeId], references: [id], onDelete: SetNull)
   user            Admin?       @relation(fields: [userId], references: [id], onDelete: SetNull)
@@ -257,6 +258,7 @@ model User {
   name              String?
   username          String?            @unique
   email             String?            @unique
+  contactEmail      String?
   emailVerified     DateTime?
   image             String?
   firstName         String?
@@ -341,18 +343,19 @@ model RefLinkView {
 }
 
 model Apply {
-  id        String      @id @default(cuid())
-  link      RefLink?    @relation(fields: [linkId], references: [id], onDelete: Cascade)
-  linkId    String?
-  quest     Quests?     @relation(fields: [questId], references: [id], onDelete: Cascade)
-  questId   String?
-  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  cv        ApplyCV     @relation(fields: [cvId], references: [id])
-  cvId      String
-  status    ApplyStatus @default(NEW)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  id           String      @id @default(cuid())
+  link         RefLink?    @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  linkId       String?
+  quest        Quests?     @relation(fields: [questId], references: [id], onDelete: Cascade)
+  questId      String?
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  cv           ApplyCV     @relation(fields: [cvId], references: [id])
+  cvId         String
+  contactEmail String      @default("")
+  status       ApplyStatus @default(NEW)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 
   @@unique([questId, userId])
 }
