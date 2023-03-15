@@ -108,6 +108,8 @@ model Quests {
   QuestLinksStatusErrors QuestLinksStatusErrors[]
   apply                  Apply[]
   refLink                RefLink[]
+
+  @@unique([title, organizationId])
 }
 
 model QuestLinksStatusErrors {
@@ -323,7 +325,7 @@ model RefLink {
   id           String        @id @default(cuid())
   shortId      String        @unique
   views        RefLinkView[]
-  quests       Quests        @relation(fields: [questId], references: [id])
+  quests       Quests        @relation(fields: [questId], references: [id], onDelete: Cascade)
   questId      String
   refUserApply Apply[]
   createdBy    User          @relation(fields: [createdById], references: [id], onDelete: Cascade)
