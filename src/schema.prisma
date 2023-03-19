@@ -345,21 +345,30 @@ model RefLinkView {
 }
 
 model Apply {
-  id           String      @id @default(cuid())
-  link         RefLink?    @relation(fields: [linkId], references: [id], onDelete: Cascade)
-  linkId       String?
-  quest        Quests?     @relation(fields: [questId], references: [id], onDelete: Cascade)
-  questId      String?
-  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId       String
-  cv           ApplyCV     @relation(fields: [cvId], references: [id])
-  cvId         String
-  contactEmail String      @default("")
-  status       ApplyStatus @default(NEW)
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  id            String               @id @default(cuid())
+  link          RefLink?             @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  linkId        String?
+  quest         Quests?              @relation(fields: [questId], references: [id], onDelete: Cascade)
+  questId       String?
+  user          User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+  cv            ApplyCV              @relation(fields: [cvId], references: [id])
+  cvId          String
+  contactEmail  String               @default("")
+  status        ApplyStatus?         @default(NEW) //deprecated
+  historyStatus ApplyStatusHistory[]
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
 
   @@unique([questId, userId])
+}
+
+model ApplyStatusHistory {
+  id        String             @id @default(cuid())
+  apply     Apply              @relation(fields: [applyId], references: [id], onDelete: Cascade)
+  applyId   String
+  status    ApplyHistoryStatus
+  createdAt DateTime           @default(now())
 }
 
 model ApplyCV {
@@ -569,6 +578,21 @@ enum ApplyStatus {
   TEST_PERIOD
   APPROVED
   DECLINED
+}
+
+enum ApplyHistoryStatus {
+  NEW
+  REQUEST_INFO
+  VERIFIED
+  DECLINED
+  DECLINED_CLIENT
+  INTERVIEW
+  SENT_OFFER
+  DECLINED_OFFER
+  TEST_PERIOD
+  APPROVED
+  FIRED
+  GET_OFFER
 }
 
 enum RewardExperienceType {
