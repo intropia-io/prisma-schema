@@ -345,20 +345,21 @@ model RefLinkView {
 }
 
 model Apply {
-  id            String               @id @default(cuid())
-  link          RefLink?             @relation(fields: [linkId], references: [id], onDelete: Cascade)
-  linkId        String?
-  quest         Quests?              @relation(fields: [questId], references: [id], onDelete: Cascade)
-  questId       String?
-  user          User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        String
-  cv            ApplyCV              @relation(fields: [cvId], references: [id])
-  cvId          String
-  contactEmail  String               @default("")
-  status        ApplyStatus?         @default(NEW) //deprecated
-  historyStatus ApplyStatusHistory[]
-  createdAt     DateTime             @default(now())
-  updatedAt     DateTime             @updatedAt
+  id             String               @id @default(cuid())
+  link           RefLink?             @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  linkId         String?
+  quest          Quests?              @relation(fields: [questId], references: [id], onDelete: Cascade)
+  questId        String?
+  user           User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
+  cv             ApplyCV              @relation(fields: [cvId], references: [id])
+  cvId           String
+  contactEmail   String               @default("")
+  expectedSalary Int                  @default(0)
+  status         ApplyStatus?         @default(NEW) //deprecated
+  historyStatus  ApplyStatusHistory[]
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
 
   @@unique([questId, userId])
 }
