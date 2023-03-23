@@ -356,6 +356,7 @@ model Apply {
   cvId           String
   contactEmail   String               @default("")
   expectedSalary Int                  @default(0)
+  notes          String?
   status         ApplyStatus?         @default(NEW) //deprecated
   historyStatus  ApplyStatusHistory[]
   createdAt      DateTime             @default(now())
