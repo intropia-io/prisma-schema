@@ -594,7 +594,6 @@ enum ApplyHistoryStatus {
   TEST_PERIOD
   APPROVED
   FIRED
-  GET_OFFER
 }
 
 enum RewardExperienceType {
