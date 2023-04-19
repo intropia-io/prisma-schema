@@ -355,7 +355,6 @@ model Apply {
   contactEmail   String               @default("")
   expectedSalary Int                  @default(0)
   notes          String?
-  status         ApplyStatus?         @default(NEW) //deprecated
   historyStatus  ApplyStatusHistory[]
   createdAt      DateTime             @default(now())
   updatedAt      DateTime             @updatedAt
@@ -368,7 +367,16 @@ model ApplyStatusHistory {
   apply     Apply              @relation(fields: [applyId], references: [id], onDelete: Cascade)
   applyId   String
   status    ApplyHistoryStatus
+  comment   String?
   createdAt DateTime           @default(now())
+}
+
+model StatusesTemplate {
+  id        String             @id @default(cuid())
+  type      ApplyHistoryStatus
+  template  String
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
 }
 
 model ApplyCV {
@@ -566,18 +574,6 @@ enum ScheduleTaskStatus {
 enum RefAccountType {
   PERSONAL
   COMMUNITY
-}
-
-enum ApplyStatus {
-  NEW
-  VERIFIED
-  INVITE
-  SENT_OFFER
-  GET_OFFER
-  DECLINED_OFFER
-  TEST_PERIOD
-  APPROVED
-  DECLINED
 }
 
 enum ApplyHistoryStatus {
