@@ -64,6 +64,7 @@ model Organizations {
   linkMedium      String?
   dateFounded     String?
   verified        Boolean      @default(false)
+  hot             Boolean      @default(false)
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
   userId          String?      @default(" ")
@@ -95,6 +96,7 @@ model Quests {
   textBlocks             String?
   rewardFrom             Float?
   rewardTo               Float?
+  hot                    Boolean                  @default(false)
   reffLink               String? //deprecated
   tokenRewardId          String?
   state                  EntityStates             @default(DRAFT)
