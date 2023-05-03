@@ -99,6 +99,7 @@ model Quests {
   hot                    Boolean                  @default(false)
   reffLink               String? //deprecated
   tokenRewardId          String?
+  options                String?
   state                  EntityStates             @default(DRAFT)
   dynasty                Dynasty?                 @relation(fields: [dynastyId], references: [id], onDelete: SetNull)
   organization           Organizations            @relation(fields: [organizationId], references: [id], onDelete: Cascade)
@@ -410,6 +411,13 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Maintenance {
+  id        String   @id @default(cuid())
+  name      String
+  text      String
+  createdAt DateTime @default(now())
 }
 
 model BotSubscription {
