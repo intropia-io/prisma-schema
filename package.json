@@ -27,10 +27,13 @@
     "@intropia-io:registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^10.1.0",
+    "@prisma/generator-helper": "^4.14.0",
     "prettier": "^2.8.3",
+    "prisma-erd-generator": "^1.7.0",
+    "tsc-hooks": "1.1.1",
     "tslint": "^6.1.3",
-    "tslint-config-prettier": "^1.18.0",
-    "tsc-hooks": "1.1.1"
+    "tslint-config-prettier": "^1.18.0"
   },
   "files": [
     "utilities/**/*",
