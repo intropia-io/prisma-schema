@@ -1,3 +1,5 @@
+[![Node.js Package](https://github.com/intropia-io/prisma-schema/actions/workflows/main.yml/badge.svg?event=release)](https://github.com/intropia-io/prisma-schema/actions/workflows/main.yml)
+
 # intropia Prisma schema
 
 Prisma schema files and components for using prisma with project.
