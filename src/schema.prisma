@@ -71,7 +71,6 @@ model Organizations {
   dateFounded     String?
   verified        Boolean      @default(false)
   hot             Boolean      @default(false)
-  aggregated      Boolean      @default(false)
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
   userId          String?      @default(" ")
@@ -104,6 +103,7 @@ model Quests {
   rewardFrom             Float?
   rewardTo               Float?
   hot                    Boolean                  @default(false)
+  aggregated             Boolean                  @default(false)
   reffLink               String? //deprecated
   tokenRewardId          String?
   options                String?
