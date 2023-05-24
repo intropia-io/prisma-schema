@@ -71,6 +71,7 @@ model Organizations {
   dateFounded     String?
   verified        Boolean      @default(false)
   hot             Boolean      @default(false)
+  aggregated      Boolean      @default(false)
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
   userId          String?      @default(" ")
@@ -295,6 +296,7 @@ model User {
   optIn             Boolean            @default(false)
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @default(now()) @updatedAt
+  lastActivity      DateTime           @default(now())
 }
 
 model UserAggrigation {
@@ -366,6 +368,8 @@ model Apply {
   contactEmail   String               @default("")
   expectedSalary Int                  @default(0)
   notes          String?
+  userNotes      String?
+  videoResume    String?
   historyStatus  ApplyStatusHistory[]
   createdAt      DateTime             @default(now())
   updatedAt      DateTime             @updatedAt
