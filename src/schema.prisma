@@ -293,6 +293,15 @@ model User {
   lastActivity      DateTime           @default(now())
 }
 
+model UserOptInCode {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  userId    String
+  emailSend String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
 model UserAggrigation {
   id            String   @id @default(cuid())
   name          String?
