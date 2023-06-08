@@ -1,6 +1,6 @@
 {
   "name": "@intropia-io/prisma-schema",
-  "version": "1.2.9",
+  "version": "1.3.0",
   "description": "intropia prisma schema",
   "main": "index.js",
   "repository": {

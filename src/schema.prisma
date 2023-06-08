@@ -528,6 +528,7 @@ enum botType {
 enum CustomRules {
   NO_REWARD
   HIDE_FROM_EXPLORER
+  SHOW_NOT_VERIFIED_IN_EXPLORER
 }
 
 enum EntityStates {
