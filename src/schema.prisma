@@ -47,7 +47,7 @@ model Token {
 }
 
 model Organizations {
-  id              String       @id @default(cuid())
+  id              String          @id @default(cuid())
   name            String
   description     String?
   typeId          String?
@@ -63,19 +63,20 @@ model Organizations {
   linkDiscord     String?
   linkMedium      String?
   dateFounded     String?
-  verified        Boolean      @default(false)
-  hot             Boolean      @default(false)
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-  userId          String?      @default(" ")
+  verified        Boolean         @default(false)
+  hot             Boolean         @default(false)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  userId          String?         @default(" ")
   textBlocks      String?
   contractAddress String?
   clientsId       String[]
-  state           EntityStates @default(DRAFT)
-  type            Type?        @relation(fields: [typeId], references: [id], onDelete: SetNull)
-  user            Admin?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  state           EntityStates    @default(DRAFT)
+  type            Type?           @relation(fields: [typeId], references: [id], onDelete: SetNull)
+  user            Admin?          @relation(fields: [userId], references: [id], onDelete: SetNull)
   events          Events[]
   quests          Quests[]
+  businessAdmins  BusinessAdmin[]
   tags            Tags[]
 }
 
@@ -498,6 +499,20 @@ model RewardExperiencePrice {
   value     Int
   createdAt DateTime             @default(now())
   updatedAt DateTime             @updatedAt
+}
+
+model BusinessAdmin {
+  id            String          @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String          @unique
+  contacts      String
+  password      String
+  avatar        String
+  organizations Organizations[]
+  defaultOrg    String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 }
 
 enum CategoryType {
