@@ -513,6 +513,7 @@ model BusinessAdmin {
   defaultOrg    String?
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+  lastActivity  DateTime        @default(now())
 }
 
 enum CategoryType {
