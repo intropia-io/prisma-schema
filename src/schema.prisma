@@ -113,8 +113,19 @@ model Quests {
   QuestLinksStatusErrors QuestLinksStatusErrors[]
   apply                  Apply[]
   refLink                RefLink[]
+  questStatusChange      QuestStatusChange[]
 
   @@unique([title, organizationId])
+}
+
+model QuestStatusChange {
+  id        String   @id @default(cuid())
+  questId   String
+  type      String
+  status    String?
+  text      String?
+  createdAt DateTime @default(now())
+  quest     Quests   @relation(fields: [questId], references: [id], onDelete: Cascade)
 }
 
 model QuestLinksStatusErrors {
