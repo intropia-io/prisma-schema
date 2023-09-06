@@ -286,6 +286,7 @@ model User {
   twitterLink       String?
   githubLink        String?
   telegram          String?
+  linkedin          String?
   dynasty           Dynasty[]
   nonce             String?
   publicAddress     String?            @unique
