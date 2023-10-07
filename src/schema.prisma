@@ -295,6 +295,7 @@ model User {
   adminUser         RefAccount[]       @relation("adminUser")
   defaultRefAccount RefAccount?        @relation("defaultRefAccount", fields: [refAccountId], references: [id])
   refAccountId      String?
+  refRegisterId     String?
   apply             Apply[]
   refLink           RefLink[]
   refAccount        RefAccount[]
