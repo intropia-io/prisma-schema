@@ -290,6 +290,7 @@ model User {
   dynasty           Dynasty[]
   nonce             String?
   publicAddress     String?            @unique
+  inviteCode         String?
   accounts          Account[]
   userAggrigation   UserAggrigation[]
   adminUser         RefAccount[]       @relation("adminUser")
